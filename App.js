@@ -12,7 +12,7 @@ export default class App extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     })
 
-    const availableColors = ['red', 'green', 'yellow', 'orange', 'lightblue', 'salmon', 'pink', 'indigo', '#0000FF']
+    const availableColors = ['red', 'green', 'yellow']
 
     this.state = {
       backgroundColor: 'lightblue',
@@ -20,10 +20,24 @@ export default class App extends Component {
       dataSource: this.ds.cloneWithRows(availableColors)
     }
     this.changeColor = this.changeColor.bind(this);
+    this.newColor = this.newColor.bind(this);
   }
+
   changeColor(backgroundColor) {
     this.setState({ backgroundColor })
   }
+
+  newColor(color){
+    const availableColors = [
+      ...this.state.availableColors,
+      color
+    ]
+    this.setState({
+      availableColors,
+      dataSource: this.ds.cloneWithRows(availableColors)
+    })
+  }
+
   render() {
     const { backgroundColor, dataSource } = this.state;
     return (
@@ -34,7 +48,7 @@ export default class App extends Component {
             onSelect={this.changeColor}/>
         )}
         renderHeader={() => (
-          < ColorForm />
+          < ColorForm onNewColor={this.newColor} />
         )}>
 
       </ListView>
