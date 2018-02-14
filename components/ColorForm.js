@@ -16,23 +16,29 @@ export default class ColorForm extends Component {
         }
         this.submit = this.submit.bind(this)
     }
-    submit(){
+    submit() {
         this.props.onNewColor(this.state.txtColor.toLowerCase())
-        this.setState({txtColor: ''})
+        this.setState({ txtColor: '' })
     }
     render() {
+        const { navigate } = this.props.navigation;
+        const uri = 'https://www.w3schools.com/colors/colors_names.asp';
         return (
             <View style={styles.container}>
-                <TextInput 
+                <TextInput
                     style={styles.txtInput}
                     placeholder="enter a color ..."
-                    onChangeText={txtColor => this.setState({txtColor})}
+                    onChangeText={txtColor => this.setState({ txtColor })}
                     value={this.state.txtColor}
-                    />
-                <Text 
+                />
+                <Text
                     style={styles.button}
                     onPress={this.submit}
-                    > Add </Text>
+                > Add </Text>
+                <Text
+                    style={styles.button}
+                    onPress={() => navigate('Web', { uri })}
+                > Info </Text>
             </View>
         );
     }
